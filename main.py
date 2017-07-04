@@ -10,6 +10,7 @@ import os
 import itertools
 import sys
 from pyfiglet import Figlet
+import markovify
 
 #############################################################################################################
 #############################################################################################################
@@ -490,6 +491,16 @@ while True:
                     print(e)
                     bot.send("Use " + command_character + "ascii <font> <text>. For a list of fonts visit https://pastebin.com/TvwCcNUd ",data.command.channel)
 
+            if cmd == "memetic":
+                text = open(file_quotes, "r").read()
+                text_model = markovify.Text(text)
+                try:
+                    output = text_model.make_short_sentence(10000)
+                    bot.send_chan(output, data.command.channel)
+                except:
+                    bot.send_chan("Whoops! COCKS!", data.command.channel)
+
+
                 '''
         #TODO: Finish this
             if cmd == "art":
@@ -498,17 +509,6 @@ while True:
                 except Exception as e:
                     print(e)
 
-        
-        #TODO: Resolve dependency
-        if cmd == "memetic":
-            text = open("quotes.txt", "r").read()
-            text_model = markovify.Text(text)
-            try:
-                output = text_model.make_short_sentence(10000)
-                bot.send_chan(output, data.channel)
-            except:
-                bot.send_chan("Whoops! COCKS!", data.channel)
-                
         #TODO: Finish this and clean up the mess
         if cmd == "poll":
             if args[1].lower() == "new":
