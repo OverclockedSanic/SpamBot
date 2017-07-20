@@ -1,4 +1,4 @@
-version = "2.1.1"
+version = "2.2"
 
 import socket
 import ssl
@@ -619,6 +619,20 @@ while True:
                         exit()
                     else:
                         bot.send(identify_required, data.channel)
+
+            if cmd == "say" and data.sender.nickname in bot_owner and data.channel == "wtfboom":
+                bot.status(data.sender.nickname)
+                if user_data.data != None and user_data.data == 3:
+                    try:
+                        if args[1] in irc_channels:
+                            bot.send(" ".join(args[2:]),args[1])
+                        else:
+                            bot.send("Not allowed", data.sender.nickname)
+                    except:
+                        bot.send("Use "+command_character+"say <channel> <message>", data.sender.nickname)
+                else:
+                    bot.send(identify_required, data.sender.nickname)
+
 
 
             if cmd == "spam":
